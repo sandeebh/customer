@@ -20,6 +20,17 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+    - task: Maven@3
+      inputs:
+       mavenPomFile: 'pom.xml'
+       options: '-dskipTests=true'
+       publishJUnitResults: true
+       testResultsFiles: '**/surefire-reports/TEST-*.xml'
+       javaHomeOption: 'JDKVersion'
+       mavenVersionOption: 'Default'
+       mavenAuthenticateFeed: false
+       effectivePomSkip: false
+       sonarQubeRunAnalysis: false
     - task: Docker@2
       displayName: Build an image
       inputs:
@@ -27,3 +38,4 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/docker/customer-app-docker/src/main/resources/Dockerfile'
         tags: |
           $(tag)
+          
