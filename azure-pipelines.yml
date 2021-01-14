@@ -23,7 +23,7 @@ stages:
     - task: Maven@3
       inputs:
        mavenPomFile: 'pom.xml'
-       options: '-dskipTests=true'
+       options: '-DskipTests=true'
        publishJUnitResults: true
        testResultsFiles: '**/surefire-reports/TEST-*.xml'
        javaHomeOption: 'JDKVersion'
